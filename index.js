@@ -24,3 +24,17 @@ app.get("/api/movies/", (req, res) => {
 	client.end;
   });
   
+
+   //api for single movies
+  
+   app.get("/api/movies/:id", (req, res) => {
+	client.query(
+	  `SELECT * FROM movies WHERE id = ${req.params.id}`,
+	  (err, result) => {
+		if (!err) {
+		  res.send(result.rows);
+		}
+	  }
+	);
+	client.end;
+  });
