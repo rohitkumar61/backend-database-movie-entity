@@ -82,3 +82,19 @@ app.get("/api/movies/", (req, res) => {
 	})
 	client.end;
 })
+
+
+// api for delete movie
+  
+app.delete("/api/movies/:id",(req,res)=>{
+	//lookup
+	let insertQuery = `DELETE FROM movies WHERE id=${req.params.id}`
+
+	client.query(insertQuery, (err, result)=>{
+		if(!err){
+			res.send('Deletion was successful')
+		}
+		else{ console.log(err.message) }
+	})
+	client.end;
+})
