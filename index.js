@@ -58,3 +58,27 @@ app.get("/api/movies/", (req, res) => {
 	});
 	client.end;
   });
+
+  // api for updating movie
+  
+  
+  app.put("/api/movies/:id",(req,res)=>{
+	let movie = req.body;
+	// console.log(movie)
+	let updateQuery = `UPDATE movies
+					   SET title = '${movie.title}',
+					   director = '${movie.director}',
+					   year = '${movie.year}',
+					   length_minutes = '${movie.length_minutes}'
+					   WHERE id = '${req.params.id}'`
+
+	client.query(updateQuery, (err, result)=>{
+		if(!err){
+			res.send('Update was successful')
+		}
+		else{ 
+			// console.log("ERRRRRRRR")
+			console.log(err.message) }
+	})
+	client.end;
+})
