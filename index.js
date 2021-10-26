@@ -38,3 +38,23 @@ app.get("/api/movies/", (req, res) => {
 	);
 	client.end;
   });
+
+
+
+  // api for posting movie
+  
+  app.post("/api/movies", (req, res) => {
+	const movie = req.body;
+	console.log(movie)
+	let insertQuery = `INSERT INTO movies(title, director, year,length_minutes) 
+						 values('${movie.title}', '${movie.director}', '${movie.year}','${movie.length_minutes}')`;
+  
+	client.query(insertQuery, (err, result) => {
+	  if (!err) {
+		res.send("Insertion was successful");
+	  } else {
+		console.log(err.message);
+	  }
+	});
+	client.end;
+  });
