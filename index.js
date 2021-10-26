@@ -9,7 +9,18 @@ app.use(express.json());
 
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Litening on port ${port}`));
+app.listen(port, () => console.log(`Listening on port ${port}`));
 
 client.connect();
 
+//api for all movies
+
+app.get("/api/movies/", (req, res) => {
+	client.query(`Select * from movies`, (err, result) => {
+	  if (!err) {
+		res.send(result.rows);
+	  }
+	});
+	client.end;
+  });
+  
