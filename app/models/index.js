@@ -20,5 +20,13 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.movies = require("./movie.model.js")(sequelize, Sequelize);
+db.shows = require("./shows.model.js")(sequelize, Sequelize);
+
+
+db.movies.hasMany(db.shows, { as: "shows" });
+db.shows.belongsTo(db.movies, {
+  foreignKey: "movieId",
+  as: "movie",
+});
 
 module.exports = db;
