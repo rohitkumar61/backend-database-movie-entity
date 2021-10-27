@@ -21,7 +21,7 @@ exports.create = (req, res) => {
 	    movie_info: req.body.movie_info,
 	};
   
-	// Save Movie in the database
+	// Save Shows in the database
 	Shows.create(shows)
 	  .then(data => {
 		res.send(data);
@@ -30,6 +30,21 @@ exports.create = (req, res) => {
 		res.status(500).send({
 		  message:
 			err.message || "Some error occurred while creating the Movie."
+		});
+	  });
+  };
+
+
+
+  exports.findAll = (req, res) => {
+	Shows.findAll()
+	  .then(data => {
+		res.send(data);
+	  })
+	  .catch(err => {
+		res.status(500).send({
+		  message:
+			err.message || "Some error occurred while retrieving shows."
 		});
 	  });
   };
