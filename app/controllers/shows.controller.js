@@ -9,10 +9,10 @@ exports.create = (req, res) => {
     });
     return;
   }
-
+console.log(req.body,req.params.id)
   const id = req.params.id;
   const shows = {
-    movieId: `${id}`,
+    movieId: id,
     movie_name: req.body.movie_name,
     theatre_name: req.body.theatre_name,
     rating: req.body.rating,
@@ -110,3 +110,12 @@ exports.delete = (req, res) => {
       });
     });
 };
+
+
+
+// {
+// 	"movie_name": "kinsman",
+// 	"theatre_name": "pvr",
+// 	"rating": "8",
+// 	"movie_info": "action"
+// }

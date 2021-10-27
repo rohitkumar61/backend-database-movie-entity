@@ -1,7 +1,7 @@
 module.exports = app => {
 	const movies = require("../controllers/movies.controller.js");
   
-	var router = require("express").Router();
+	let router = require("express").Router();
   
 	// Create a new Movies
 	router.post("/", movies.create);
@@ -9,7 +9,12 @@ module.exports = app => {
 	// Retrieve all movies
 	router.get("/", movies.findAll);
   
-	// Retrieve a single Movies with id
+	// Retrieve shows 
+
+	router.get("/:id/shows", movies.movieWithShows);
+	router.get("/shows", movies.allMoviesWithShows);
+	
+
 	router.get("/:id", movies.findOne);
   
 	// Update a Movies with id

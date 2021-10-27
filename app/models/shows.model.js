@@ -9,7 +9,7 @@ module.exports = (sequelize, Sequelize) => {
 			notNull: true,
 		  },
 		  rating: {
-			type: Sequelize.DECIMAL,
+			type: Sequelize.INTEGER,
 			notNull: true,
 		  },
 		  movie_info: {
