@@ -6,6 +6,7 @@ const app = express();
 var corsOptions = {
 	origin: "http://localhost:8081"
   };
+
 app.use(cors(corsOptions));
 
 const db = require("./app/models");
@@ -29,7 +30,7 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to movie application." });
 });
 
-require("./app/routes/turorial.routes")(app);
+require("./app/routes/movie.routes")(app);
 
 
 // set port, listen for requests
