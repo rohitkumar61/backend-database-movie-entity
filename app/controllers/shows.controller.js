@@ -68,3 +68,58 @@ exports.create = (req, res) => {
 		});
 	  });
   };
+
+
+
+
+  exports.update = (req, res) => {
+	const id = req.params.id;
+  
+	Shows.update(req.body, {
+	  where: {id: id}
+	})
+	  .then(num => {
+		if (num == 1) {
+		  res.send({
+			message: "Shows was updated successfully."
+		  });
+		} else {
+		  res.send({
+			message: `Cannot update Shows with id=${id}. Maybe Shows was not found or req.body is empty!`
+		  });
+		}
+	  })
+	  .catch(err => {
+		res.status(500).send({
+		  message: "Error updating Shows with id=" + id
+		});
+	  });
+  };
+
+
+
+
+  exports.delete = (req, res) => {
+	const id = req.params.id;
+  
+	Shows.destroy({
+	  where: {id: id }
+	})
+	  .then(num => {
+		if (num == 1) {
+		  res.send({
+			message: "Shows was deleted successfully!"
+		  });
+		} else {
+		  res.send({
+			message: `Cannot delete Shows with id=${id}. Maybe Shows was not found!`
+		  });
+		}
+	  })
+	  .catch(err => {
+		res.status(500).send({
+		  message: "Could not delete Shows with id=" + id
+		});
+	  });
+  };
+
