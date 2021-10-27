@@ -28,7 +28,7 @@ exports.create = (req, res) => {
 	  .catch(err => {
 		res.status(500).send({
 		  message:
-			err.message || "Some error occurred while creating the Tutorial."
+			err.message || "Some error occurred while creating the Movie."
 		});
 	  });
   };
@@ -37,15 +37,14 @@ exports.create = (req, res) => {
   exports.findAll = (req, res) => {
 	const title = req.query.title;
 	var condition = title ? { title: { [Op.iLike]: `%${title}%` } } : null;
-  
-	Movie.findAll({ where: condition })
+	Movie.findAll({condition})
 	  .then(data => {
 		res.send(data);
 	  })
 	  .catch(err => {
 		res.status(500).send({
 		  message:
-			err.message || "Some error occurred while retrieving tutorials."
+			err.message || "Some error occurred while retrieving Movie."
 		});
 	  });
   };
@@ -66,7 +65,7 @@ exports.create = (req, res) => {
 	  })
 	  .catch(err => {
 		res.status(500).send({
-		  message: "Error retrieving Tutorial with id=" + id
+		  message: "Error retrieving Movie with id=" + id
 		});
 	  });
   };
@@ -77,7 +76,7 @@ exports.create = (req, res) => {
 	const id = req.params.id;
   
 	Movie.update(req.body, {
-	  where: { id: id }
+	  where: {id: id}
 	})
 	  .then(num => {
 		if (num == 1) {
@@ -92,7 +91,7 @@ exports.create = (req, res) => {
 	  })
 	  .catch(err => {
 		res.status(500).send({
-		  message: "Error updating Tutorial with id=" + id
+		  message: "Error updating Movie with id=" + id
 		});
 	  });
   };
@@ -102,7 +101,7 @@ exports.create = (req, res) => {
 	const id = req.params.id;
   
 	Movie.destroy({
-	  where: { id: id }
+	  where: {id: id }
 	})
 	  .then(num => {
 		if (num == 1) {
@@ -122,3 +121,45 @@ exports.create = (req, res) => {
 	  });
   };
 
+
+
+  exports.movieWithShows = (req, res) => {
+	const id = req.params.id;
+  
+	Movie.findByPk(id, { include: ["shows"] })
+	  .then((data) => {
+		if (data) {
+		  res.send(data);
+		} else {
+		  res.status(404).send({
+			message: `Cannot find Movie with id=${id}.`,
+		  });
+		}
+	  })
+	  .catch((err) => {
+		res.status(500).send({
+		  message: "Error retrieving Movie with id=" + id,
+		});
+	  });
+  };
+  
+  exports.allMoviesWithShows = (req, res) => {
+	Movie.findAll({
+	  include: ["shows"],
+	})
+	  .then((data) => {
+		if (data) {
+		  res.send(data);
+		} else {
+		  res.status(404).send({
+			message: `Cannot find Movie with shows`,
+		  });
+		}
+	  })
+	  .catch((err) => {
+		res.status(500).send({
+		  message: "Error retrieving Movie",
+		});
+	  });
+  };
+  
