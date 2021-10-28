@@ -112,10 +112,3 @@ exports.delete = (req, res) => {
 };
 
 
-
-// {
-// 	"movie_name": "kinsman",
-// 	"theatre_name": "pvr",
-// 	"rating": "8",
-// 	"movie_info": "action"
-// }
